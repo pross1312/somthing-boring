@@ -1,0 +1,2 @@
+# somthing-boring
+Learning rust
