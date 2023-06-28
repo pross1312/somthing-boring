@@ -1,15 +1,11 @@
-use std::fs::File;
-use std::io::prelude::*;
 fn main() {
-    let mut input_file = File::open("input.txt").expect("Can't open");
-    let mut input = String::new();
-    input_file.read_to_string(&mut input).expect("can't read");
+    let input = std::fs::read_to_string("input.txt").unwrap();
     let mut sum: i64 = 0;
     let mut ans: i64 = 0;
     let mut all: Vec<i64> = Vec::new();
-    for token in input.split("\n") {
+    for token in input.split_terminator('\n') {
         if token != "" {
-            let val: i64 = String::from(token).trim().parse().expect("Can't parse");
+            let val: i64 = token.trim().parse().unwrap();
             sum += val;
         } else if sum > ans {
             ans = sum;
