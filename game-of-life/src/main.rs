@@ -54,16 +54,16 @@ pub fn main() {
 }
 fn random_state(state: &mut [[State; COLS]; ROWS]) {
     let mut rng = rand::thread_rng();
-    for i in (0..ROWS).rev() {
-        for j in (0..COLS).rev() {
+    for i in 0..ROWS {
+        for j in 0..COLS {
             state[i][j] = if (rng.gen::<i32>())%2 == 0 {State::Dead} else {State::Alive};
         }
     }
 }
 
 fn draw_state(canvas: &mut sdl2::render::WindowCanvas, state: &[[State; COLS]; ROWS]) {
-    for r in (0..ROWS).rev() {
-        for c in (0..COLS).rev() {
+    for r in 0..ROWS {
+        for c in 0..COLS {
             let row:i32 = r.try_into().unwrap();
             let col:i32 = c.try_into().unwrap();
             match state[r][c] {
@@ -111,8 +111,8 @@ fn count_alive_neighbors(state: &[[State; COLS]; ROWS], r: i32, c: i32) -> u32 {
 //    Any dead cell with exactly three live neighbours becomes a live cell, as if by reproduction.
 fn update_state(state: &mut [[State; COLS]; ROWS]) {
     let mut new_state: [[State; COLS]; ROWS] = [[State::Dead ; COLS] ; ROWS];
-    for r in (1..ROWS-1).rev() {
-        for c in (1..COLS-1).rev() {
+    for r in 1..ROWS-1 {
+        for c in 1..COLS-1 {
             let n_alive_neighbors = count_alive_neighbors(state, r as i32, c as i32);
             if n_alive_neighbors < 2 || n_alive_neighbors > 3 {
                 new_state[r][c] = State::Dead;
