@@ -20,13 +20,16 @@ fn main() {
             }
         } else {
             let tokens: Vec<&str> = line.split_terminator(' ').collect();
-            let stack_2_end: usize = stacks_2[tokens[5].parse::<usize>().unwrap() - 1].len();
-            for _ in 0..tokens[1].parse().unwrap() {
-                if let Some(val) = stacks_1[tokens[3].parse::<usize>().unwrap() - 1].pop_back() {
-                    stacks_1[tokens[5].parse::<usize>().unwrap() - 1].push_back(val);
+            let n_items = tokens[1].parse::<usize>().unwrap();
+            let from = tokens[3].parse::<usize>().unwrap() - 1;
+            let to = tokens[5].parse::<usize>().unwrap() - 1;
+            let stack_2_end: usize = stacks_2[to].len();
+            for _ in 0..n_items {
+                if let Some(val) = stacks_1[from].pop_back() {
+                    stacks_1[to].push_back(val);
                 }
-                if let Some(val) = stacks_2[tokens[3].parse::<usize>().unwrap() - 1].pop() {
-                    stacks_2[tokens[5].parse::<usize>().unwrap() - 1].insert(stack_2_end, val);
+                if let Some(val) = stacks_2[from].pop() {
+                    stacks_2[to].insert(stack_2_end, val);
                 }
             }
         }
